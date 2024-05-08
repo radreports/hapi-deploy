@@ -1,6 +1,11 @@
-version: "3"
+version: '3.7'
+
 services:
-  hapi-fhir-jpaserver-start:
-    image: smartonfhir/hapi-5:r5-empty
+  web:
+    image: "hapiproject/hapi:latest"
     ports:
       - "8080:8080"
+    volumes:
+      - ./application.yaml:/data/hapi/application.yaml  # Mount the local application.yaml to the required path in the container
+    environment:
+      SPRING_CONFIG_LOCATION: 'file:///data/hapi/application.yaml'  # Ensure the application uses the mounted configuration file
